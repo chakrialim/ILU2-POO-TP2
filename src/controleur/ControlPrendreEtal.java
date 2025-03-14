@@ -22,9 +22,8 @@ public class ControlPrendreEtal {
 		numeroEtal = village.installerVendeur(gaulois, produit, nbProduit);
 		return numeroEtal;
 	}
-
+ 
 	public boolean verifierIdentite(String nomVendeur) {
-		boolean nomVendeurConnu = controlVerifierIdentite.verifierIdentite(nomVendeur);
-		return nomVendeurConnu;
+		return controlVerifierIdentite.verifierIdentite(nomVendeur);
 	}
 }
