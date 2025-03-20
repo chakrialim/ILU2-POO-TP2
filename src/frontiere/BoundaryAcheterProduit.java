@@ -10,6 +10,13 @@ public class BoundaryAcheterProduit {
 	}
 
 	public void acheterProduit(String nomAcheteur) {
-		// TODO à completer
+		boolean isVillageois = controlAcheterProduit.verifierIdentite(nomAcheteur);
+		if (!isVillageois) {
+			System.out.println("Je suis desolee " +nomAcheteur+" mais il faut un habitant de notre village pour commercer ici.");
+		} else {
+			String produit = Clavier.entrerChaine("Quel produit souhaitez-vous acheter?");
+			controlAcheterProduit.verifierProduit(produit);
+			
+		}
 	}
 }
