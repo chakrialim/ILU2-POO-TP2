@@ -1,7 +1,6 @@
 package frontiere;
 
 import controleur.ControlAcheterProduit;
-import personnages.Gaulois;
 
 public class BoundaryAcheterProduit {
 	private ControlAcheterProduit controlAcheterProduit;
@@ -17,9 +16,10 @@ public class BoundaryAcheterProduit {
 					+ " mais il faut un habitant de notre village pour commercer ici.");
 		} else {
 			String produit = Clavier.entrerChaine("Quel produit souhaitez-vous acheter?");
-			Gaulois[] vendeurs = controlAcheterProduit.verifierProduit(produit);
-			if (vendeurs == null) {
-				System.out.println("Désolé, personne ne vend ce produit au marché.");
+			String texte = controlAcheterProduit.verifierProduit(produit);
+			//TODO refaire fonction 
+			if (texte != null) {
+				System.out.println(texte);
 			} else {
 				traiterAchat(nomAcheteur, vendeurs, produit);
 			}

@@ -21,8 +21,12 @@ public class ControlAcheterProduit {
 		return controlVerifierIdentite.verifierIdentite(nomAcheteur);
 	}
 	
-	public Gaulois[] verifierProduit(String produit) {
-		return village.rechercherVendeursProduit(produit);
+	public String verifierProduit(String produit) {
+		Gaulois[] vendeurs = village.rechercherVendeursProduit(produit);
+		if(vendeurs==null) {
+			return("Désolé, personne ne vend ce produit au marché.");
+		}
+		return null;
 	}
 	
 	public int verifierDisponibilite(String nomVendeur) {

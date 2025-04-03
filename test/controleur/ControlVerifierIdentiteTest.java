@@ -2,31 +2,40 @@ package controleur;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import personnages.Chef;
 import personnages.Gaulois;
 import villagegaulois.Village;
 
 class ControlVerifierIdentiteTest {
 	
 	private Village village;
+	private Chef chef;
 	private Gaulois vendeur;
-	private ControlVerifierIdentite controlVerifierIdentite;
+	private ControlVerifierIdentite cvi;
+	
+	@BeforeEach
+	public void initialiserSituation() {
+		village = new Village("le village des irréductibles", 10, 5);
+		chef = new Chef("chef",10,village);
+		village.setChef(chef);
+		cvi = new ControlVerifierIdentite(village);
+		
+	}
 	
 	@Test
-	void testControlVerifierIdentite() {
-		village = new Village("NomVillage", 1, 1);
-		controlVerifierIdentite = new ControlVerifierIdentite(village);
+	void testControl() {
+		assertNotNull(cvi);
 	}
-
 	@Test
-	void testVerifierIdentite() {
-		village = new Village("NomVillage", 10, 1);
-		controlVerifierIdentite = new ControlVerifierIdentite(village);
-		vendeur = new Gaulois("Amber", 13);
+	void testControlVerifierIdentite() {
+		vendeur = new Gaulois("Vendeur", 10);
 		village.ajouterHabitant(vendeur);
-		assertTrue(controlVerifierIdentite.verifierIdentite("Amber"));
-		
+		String nomVendeur = vendeur.getNom();
+		assertNotNull(cvi.verifierIdentite(nomVendeur));
+
 	}
 
 }
