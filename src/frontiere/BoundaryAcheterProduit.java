@@ -16,37 +16,36 @@ public class BoundaryAcheterProduit {
 					+ " mais il faut un habitant de notre village pour commercer ici.");
 		} else {
 			String produit = Clavier.entrerChaine("Quel produit souhaitez-vous acheter?");
-			String texte = controlAcheterProduit.verifierProduit(produit);
-			//TODO refaire fonction 
-			if (texte != null) {
-				System.out.println(texte);
+			String[] nomVendeurs = controlAcheterProduit.verifierProduit(produit);
+			if (nomVendeurs == null) {
+				System.out.println("Désolé, personne ne vend pas ce produit au marché.");
 			} else {
-				traiterAchat(nomAcheteur, vendeurs, produit);
+				traiterAchat(nomAcheteur, nomVendeurs, produit);
 			}
 
 		}
 	}
 
-	public void traiterAchat(String nomAcheteur, Gaulois[] vendeurs, String produit) {
+	public void traiterAchat(String nomAcheteur, String[] nomVendeurs, String produit) {
 		System.out.println("Chez quel commercant voulez-vous acheter des fleurs?");
 		StringBuilder question = new StringBuilder();
-		for (int i = 0; i < vendeurs.length; i++) {
-			question.append((i + 1) + " - " + vendeurs[i].getNom() + "\n");
+		for (int i = 0; i < nomVendeurs.length; i++) {
+			question.append((i + 1) + " - " + nomVendeurs[i] + "\n");
 		}
 		int nbVendeur = Clavier.entrerEntier(question.toString());
-		String nomVendeur = vendeurs[nbVendeur - 1].getNom();
+		String nomVendeur = nomVendeurs[nbVendeur - 1];
 		System.out.println(nomAcheteur + " se deplace jusqu'a l'etal du vendeur " + nomVendeur);
 		int nbAchat = Clavier.entrerEntier("Combien de " + produit + " voulez-vous acheter?");
-		int quantiteDispo = controlAcheterProduit.verifierDisponibilite(nomVendeur);
-		if (quantiteDispo == 0) {
+		int nbAchete = controlAcheterProduit.acheterProduit(nomVendeur, nbAchat);
+		if (nbAchete == 0) {
 			System.out.println(
 					nomAcheteur + " veut acheter " + nbAchat + " " + produit + ", malheureusement il n'yen a plus !");
 		} else {
-			if (quantiteDispo < nbAchat) {
+			if (nbAchete == nbAchat) {
 				System.out.println(nomAcheteur + " veut acheter " + nbAchat + " " + produit + ", malheureusement "
-						+ nomVendeur + " n'en a plus que " + quantiteDispo + ". " + nomAcheteur
-						+ " achete tout le stock de " + nomVendeur + ".");
-				controlAcheterProduit.acheterProduit(nomVendeur, quantiteDispo);
+						+ nomVendeur + " n'en a plus que " + nbAchete + ". " + nomAcheteur + " achete tout le stock de "
+						+ nomVendeur + ".");
+				controlAcheterProduit.acheterProduit(nomVendeur, nbAchete);
 			} else {
 				System.out.println(nomAcheteur + " achete " + nbAchat + " " + produit + " a " + nomVendeur + ".");
 				controlAcheterProduit.acheterProduit(nomVendeur, nbAchat);

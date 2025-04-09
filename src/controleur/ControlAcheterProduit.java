@@ -10,8 +10,7 @@ public class ControlAcheterProduit {
 	private ControlVerifierIdentite controlVerifierIdentite;
 
 	public ControlAcheterProduit(ControlVerifierIdentite controlVerifierIdentite,
-			ControlTrouverEtalVendeur controlTrouverEtalVendeur,
-			Village village) {
+			ControlTrouverEtalVendeur controlTrouverEtalVendeur, Village village) {
 		this.village = village;
 		this.controlVerifierIdentite = controlVerifierIdentite;
 		this.controlTrouverEtalVendeur = controlTrouverEtalVendeur;
@@ -20,22 +19,27 @@ public class ControlAcheterProduit {
 	public boolean verifierIdentite(String nomAcheteur) {
 		return controlVerifierIdentite.verifierIdentite(nomAcheteur);
 	}
-	
-	public String verifierProduit(String produit) {
+
+	@SuppressWarnings("null")
+	public String[] verifierProduit(String produit) {
 		Gaulois[] vendeurs = village.rechercherVendeursProduit(produit);
-		if(vendeurs==null) {
-			return("Désolé, personne ne vend ce produit au marché.");
+		String[] nomVendeurs = null;
+		for (int i = 0; i < vendeurs.length; i++) {
+			nomVendeurs[i] = vendeurs[i].getNom();
+
 		}
-		return null;
+		return nomVendeurs;
 	}
-	
+
 	public int verifierDisponibilite(String nomVendeur) {
 		Etal etal = controlTrouverEtalVendeur.trouverEtalVendeur(nomVendeur);
- 		return etal.getQuantite();
+		return etal.getQuantite();
 	}
-	
-	public void acheterProduit(String nomVendeur, int nbAchat) {
+
+	public int acheterProduit(String nomVendeur, int nbAchat) {
 		Etal etal = controlTrouverEtalVendeur.trouverEtalVendeur(nomVendeur);
-		etal.acheterProduit(nbAchat);
+		System.out.println(etal.getQuantite());
+		return etal.acheterProduit(nbAchat);
+
 	}
 }

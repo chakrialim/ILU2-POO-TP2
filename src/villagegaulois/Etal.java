@@ -1,5 +1,7 @@
 package villagegaulois;
 
+import java.util.Iterator;
+
 import personnages.Gaulois;
 
 public class Etal {
@@ -29,7 +31,7 @@ public class Etal {
 		this.vendeur = vendeur;
 		this.produit = produit;
 		this.quantite = quantite;
-		quantiteDebutMarche = quantite;
+		this.quantiteDebutMarche = quantite;
 		etalOccupe = true;
 	}
 
@@ -38,15 +40,13 @@ public class Etal {
 	}
 
 	public int acheterProduit(int quantiteAcheter) {
-		if (quantite == 0) {
-			quantiteAcheter = 0;
+		if (quantite==0) {
+			return 0;
 		}
-		if (quantiteAcheter > quantite) {
+		if(quantiteAcheter > quantite) {
 			quantiteAcheter = quantite;
 		}
-		if (etalOccupe) {
-			quantite -= quantiteAcheter;
-		}
+		quantite -= quantiteAcheter;
 		return quantiteAcheter;
 	}
 
@@ -72,6 +72,5 @@ public class Etal {
 		}
 		return donneesVente;
 	}
-	
 
 }
